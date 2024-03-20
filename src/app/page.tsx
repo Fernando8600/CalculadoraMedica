@@ -113,19 +113,16 @@ export default function Home() {
             <label className='px-2 text-sm font-light text-gray-900'>{imc >= 30 && imc < 35 && "Obesidad Grado I"} </label>
             <label className='px-2 text-sm font-light text-gray-900'>{imc >= 35 && imc < 40 && "Obesidad Grado II"} </label>
             <label className='px-2 text-sm font-light text-gray-900'>{imc >= 40 && "Obesidad Grado III"} </label>
-
-            {/* <InputVDecimal min={1} max={100} title="IMC" disabled={false} onValueChange={function (value: number): void {
-              throw new Error('Function not implemented.');
-            }}></InputVDecimal> */}
+            <br />
+            <br />
             {validationChange >= 30 ? <>
               <Checkbox
                 isChecked={isCheckedState}
                 handleCheckboxChange={handleCheckboxChange}
                 handleValidationChange4={handleValidationChange4}
               />
-              <br></br>
-              <br></br>
-
+              <br />
+              <br />
             </>
               : null}
           </div>
