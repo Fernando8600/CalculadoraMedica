@@ -29,8 +29,12 @@ export default function InputValidation({ max, min, title, onValueChange, disabl
     };
 
     const handleValueChange = (newValue: string) => {
-        setValue(newValue);
-        onValueChange(Number(newValue));
+        if (!isNaN(parseFloat(newValue))) {
+            setValue(newValue);
+            onValueChange(Number(newValue));
+        } else {
+            setValue('');
+        }
     };
 
     useEffect(() => {
@@ -38,7 +42,6 @@ export default function InputValidation({ max, min, title, onValueChange, disabl
             setValue('');
         }
     }, [disabled]);
-
     return (
         <>
             <div className="">

@@ -61,6 +61,7 @@ export default function Home() {
   };
 
   const handleValidationChange = (value: React.SetStateAction<number>) => {
+
     setValidationChange(value);
   };
 
@@ -79,7 +80,8 @@ export default function Home() {
   const handleValidationChange5 = (value: React.SetStateAction<number>) => {
     setValidationChange5(value);
   };
-
+  //502.65 x 468
+  // 384 x 468
   return (
     <main className="flex min-h-screen flex-col ml-20 sm:text-3xl items-center mb-14 mt-10">
       <h1 className="  text-ternary-dark font-semibold">Calculadora de Factores de Riesgo</h1>
@@ -99,7 +101,8 @@ export default function Home() {
             <option value="mujer">Mujer</option>
           </select>
           <br></br>
-          <div className="columns-2">
+
+          <div className="md:columns-2 sm:columns-1">
             <InputValidation min={0} max={100} title="Edad (años cumplidos)" onValueChange={handleValidationChange} disabled={false}></InputValidation>
             <InputVDecimal min={0} max={200} title="Peso (kg)" onValueChange={(value) => setPeso(value)} disabled={false}></InputVDecimal>
             <InputVDecimal min={1} max={2} title="Talla (m)" onValueChange={(value) => setTalla(value)} disabled={false}></InputVDecimal>
@@ -163,10 +166,10 @@ export default function Home() {
           </button>
 
           <div className={showAcciones ? '' : 'hidden'}>
-            <label htmlFor="acciones" className="block  text-gray-900 font-medium text-lg">
+            <label htmlFor="acciones" className="md:block  text-gray-900 font-medium text-lg">
               Acciones Recomendadas
             </label>
-            <div className="grid grid-cols-3 gap-4 ">
+            <div className="md:grid md:grid-cols-3 md:gap-4 ">
               {selectedSex === "hombre" && validationChange >= 50 && validationChange <= 70 && <Card accion="Antígeno Prostático"></Card>}
               {selectedSex === "mujer" && validationChange >= 25 && validationChange <= 35 && <Card accion="Papanicolau al año"></Card>}
               {selectedSex === "mujer" && validationChange >= 35 && validationChange <= 65 && <Card accion="PCR VPH al año"></Card>}
