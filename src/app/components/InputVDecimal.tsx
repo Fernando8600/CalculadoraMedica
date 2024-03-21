@@ -49,7 +49,7 @@ export default function InputVDecimal({ max, min, title, onValueChange, disabled
                 <label htmlFor={title} className="px-2 text-sm font-light text-gray-900 py-2">
                     {title}
                 </label>
-                <div className="relative h-10 min-w-[100px] w-40 md:my-2 sm:mb-6 ">
+                <div className="relative h-10 min-w-[100px] w-40 md:my-2 sm:my-6 xs:my-6">
 
                     <FloatingLabel variant="outlined" label={errors ? "Número No Válido" : "Número Aceptado"} color={errors ? "error" : "success"} value={value}
                         onChange={(e) => handleValueChange(e.target.value)}

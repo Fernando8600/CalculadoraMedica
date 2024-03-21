@@ -54,7 +54,7 @@ export default function Inputv3({ max, min, title, onValueChange, disabled }: In
                     <br />
                 </>
                     : null}
-                <div className={disabled ? 'hidden' : 'relative h-10 min-w-[100px] w-40 md:my-2 sm:mb-6 '}>
+                <div className={disabled ? 'hidden' : 'relative h-10 min-w-[100px] w-40 md:my-2 sm:my-2 xs:my-6'}>
 
                     <FloatingLabel variant="outlined" label={errors ? "Número No Válido" : "Número Aceptado"} color={errors ? "error" : "success"} value={value}
                         onChange={(e) => handleValueChange(e.target.value)}
