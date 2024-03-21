@@ -152,6 +152,10 @@ export default function Home() {
               <br />
             </>
               : null}
+            {selectedEmbarazo !== "si" ? <>
+              <br />
+            </>
+              : null}
 
           </div>
           <label htmlFor="diabetes" className="mt-2 block text-sm  text-gray-900 font-medium">
