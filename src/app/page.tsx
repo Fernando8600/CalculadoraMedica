@@ -118,7 +118,7 @@ export default function Home() {
               <select
                 id="embarazo"
                 name="embarazo"
-                className=" sm:mb-3 bg-gray-100 full rounded border-0 py-0 pl-2 pr-7 text-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
+                className=" xs:mb-4 sm:mb-3 bg-gray-100 full rounded border-0 py-0 pl-2 pr-7 text-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
                 onChange={handleEmbarazoChange}
               >
                 <option value="" >Selecciona una opción...</option>
@@ -200,7 +200,7 @@ export default function Home() {
             </label>
             <div className="md:grid md:grid-cols-3 md:gap-4 ">
               {selectedSex === "hombre" && validationChange >= 50 && validationChange <= 70 && <Card accion="Antígeno Prostático cada año."></Card>}
-              {selectedSex === "mujer" && validationChange >= 25 && validationChange <= 35 && <Card accion="Papanicolau cada año"></Card>}
+              {selectedSex === "mujer" && validationChange >= 25 && validationChange <= 35 && <Card accion="Papanicolau cada año."></Card>}
               {selectedSex === "mujer" && validationChange >= 35 && validationChange <= 65 && <Card accion="PCR VPH cada año."></Card>}
               {selectedSex === "mujer" && validationChange >= 40 && validationChange <= 70 && <Card accion="Mastografia (sacar cita) cada año."></Card>}
 
@@ -233,13 +233,13 @@ export default function Home() {
                 <Card accion="Electrocardiograma cada año."></Card>
               </>}
               {((validationChange6 >= 1 && validationChange6 <= 12) || (validationChange6 >= 27 && validationChange6 <= 40) && (selectedSex === "mujer")) && <>
-                <Card accion="Prueba VIH y VDRL en 1er. trimestre y 3er. trimestre"></Card>
+                <Card accion="Prueba VIH y VDRL en 1er. trimestre y 3er. trimestre."></Card>
               </>}
               {validationChange6 >= 24 && validationChange6 <= 28 && selectedSex === "mujer" && <>
-                <Card accion="Realizar curva de tolerancia a la Glucosa"></Card>
+                <Card accion="Realizar curva de tolerancia a la Glucosa."></Card>
               </>}
               {validationChange6 > 28 && validationChange6 <= 42 && selectedSex === "mujer" && <>
-                <Card accion="En caso de no tenerla, realizar curva de tolerancia a la Glucosa"></Card>
+                <Card accion="En caso de no tenerla, realizar curva de tolerancia a la Glucosa."></Card>
               </>}
 
               {showMissingRCVCard && (
