@@ -93,7 +93,7 @@ export default function Home() {
   //502.65 x 468
   // 384 x 468
   return (
-    <main className="flex min-h-screen flex-col ml-20 sm:text-3xl items-center mb-14 mt-10">
+    <main className="flex min-h-screen flex-col sm:text-3xl items-center mb-14 mt-10">
       <h1 className="  text-ternary-dark font-semibold">Calculadora de Factores de Riesgo</h1>
       <form>
         <label htmlFor="sexo" className=" mt-10 block text-sm  text-gray-900 font-medium">
