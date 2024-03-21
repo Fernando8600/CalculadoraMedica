@@ -2,19 +2,19 @@
 
 import React from 'react';
 import InputValidation from './InputValidation';
+import Inputv3 from './Inputv3';
 
-function Checkbox(props: { isChecked: any; handleCheckboxChange: any; handleValidationChange4: any; }) {
+function Checkbox(props: { isChecked: boolean; handleCheckboxChange: any; handleValidationChange4: any; }) {
     const { isChecked, handleCheckboxChange, handleValidationChange4 } = props;
 
     return (
         <div className="">
-            <InputValidation
-                max={100}
+            <Inputv3 max={100}
                 min={0}
                 title="RCV (%)"
                 disabled={isChecked}
-                onValueChange={handleValidationChange4}
-            />
+
+                onValueChange={handleValidationChange4} />
             <div className='flex'>
                 <div className="flex items-center h-5">
 
@@ -29,6 +29,7 @@ function Checkbox(props: { isChecked: any; handleCheckboxChange: any; handleVali
                     />
                 </div>
                 <div className="ms-2 text-sm">
+
                     <label htmlFor="helper-checkbox" className="font-medium text-gray-900 dark:text-gray-300">
                         No se aplicó
                     </label>

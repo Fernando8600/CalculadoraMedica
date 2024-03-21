@@ -1,10 +1,11 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import Card from "./components/Card";
-import InputValidation from "./components/InputValidation";
 import InputVDecimal from "./components/InputVDecimal";
-import Checkbox from "./components/Checkbox";
-import Inputv2 from './components/Inputv2';
+import Inputv3 from './components/Inputv3';
+import Checkbox2 from './components/Checkbox2';
+//import Checkbox from "./components/Checkbox";
+//import InputValidation from "./components/InputValidation";
 
 export default function Home() {
   const [showMissingRCVCard, setShowMissingRCVCard] = useState(false);
@@ -103,7 +104,8 @@ export default function Home() {
           <br></br>
 
           <div className="md:columns-2 sm:columns-1">
-            <InputValidation min={0} max={100} title="Edad (años cumplidos)" onValueChange={handleValidationChange} disabled={false}></InputValidation>
+            <Inputv3 min={0} max={100} title="Edad (años cumplidos)" onValueChange={handleValidationChange} disabled={false} />
+            {/* <InputValidation min={0} max={100} title="Edad (años cumplidos)" onValueChange={handleValidationChange} disabled={false}></InputValidation> */}
             <InputVDecimal min={0} max={200} title="Peso (kg)" onValueChange={(value) => setPeso(value)} disabled={false}></InputVDecimal>
             <InputVDecimal min={1} max={2} title="Talla (m)" onValueChange={(value) => setTalla(value)} disabled={false}></InputVDecimal>
             <label className='px-2 text-sm font-medium text-gray-900'>IMC: {imc.toFixed(2)}</label>
@@ -116,7 +118,7 @@ export default function Home() {
             <br />
             <br />
             {validationChange >= 30 ? <>
-              <Checkbox
+              <Checkbox2
                 isChecked={isCheckedState}
                 handleCheckboxChange={handleCheckboxChange}
                 handleValidationChange4={handleValidationChange4}
@@ -203,6 +205,6 @@ export default function Home() {
           </div>
         </div>
       </form>
-    </main >
+    </main>
   );
 }

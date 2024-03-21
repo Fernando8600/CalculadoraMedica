@@ -9,16 +9,7 @@ interface InputVProps {
     disabled: boolean;
 }
 
-export default function InputVDecimal({ max, min, title, onValueChange, disabled }: InputVProps) {
-    const handleValueChange = (newValue: string) => {
-        if (!isNaN(parseFloat(newValue))) {
-            setValue(newValue);
-            onValueChange(Number(newValue));
-        } else {
-            setValue('');
-        }
-    };
-
+export default function Inputv3({ max, min, title, onValueChange, disabled }: InputVProps) {
     const [value, setValue] = useState<string>('');
     const [errors, setErrors] = useState<boolean>(false);
 
@@ -31,30 +22,43 @@ export default function InputVDecimal({ max, min, title, onValueChange, disabled
 
         if (value.trim() === '') {
             setErrors(true);
-        } else if (Number.isFinite(parsedValue) && parsedValue >= min && parsedValue <= max) {
+        } else if (Number.isInteger(parsedValue) && parsedValue >= min && parsedValue <= max) {
             setErrors(false);
         } else {
             setErrors(true);
         }
     };
+
+    const handleValueChange = (newValue: string) => {
+        if (!isNaN(parseFloat(newValue))) {
+            setValue(newValue);
+            onValueChange(Number(newValue));
+        } else {
+            setValue('');
+        }
+    };
+
     useEffect(() => {
         if (disabled) {
             setValue('');
         }
     }, [disabled]);
-
     return (
         <>
-            <div className="">
-                <label htmlFor={title} className="px-2 text-sm font-light text-gray-900 py-2">
+            <div>
+                <label htmlFor={title} className="px-2 text-sm font-light text-gray-900">
                     {title}
                 </label>
-                <div className="relative h-10 min-w-[100px] w-40 my-2">
+                {disabled ? <>
+                    <br />
+                    <br />
+                </>
+                    : null}
+                <div className={disabled ? 'hidden' : 'relative h-10 min-w-[100px] w-40 my-2 '}>
 
                     <FloatingLabel variant="outlined" label={errors ? "Número No Válido" : "Número Aceptado"} color={errors ? "error" : "success"} value={value}
                         onChange={(e) => handleValueChange(e.target.value)}
                         disabled={disabled} />
-
                 </div>
             </div>
 
