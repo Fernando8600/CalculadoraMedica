@@ -103,7 +103,7 @@ export default function Home() {
           <select
             id="sexo"
             name="sexo"
-            className="bg-gray-100 full rounded border-0 py-0 pl-2 pr-7 text-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
+            className=" sm:mb-6 bg-gray-100 full rounded border-0 py-0 pl-2 pr-7 text-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
             onChange={handleSexoChange}
           >
             <option value="" >Selecciona una opción...</option>
@@ -118,7 +118,7 @@ export default function Home() {
               <select
                 id="embarazo"
                 name="embarazo"
-                className="bg-gray-100 full rounded border-0 py-0 pl-2 pr-7 text-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
+                className=" sm:mb-3 bg-gray-100 full rounded border-0 py-0 pl-2 pr-7 text-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
                 onChange={handleEmbarazoChange}
               >
                 <option value="" >Selecciona una opción...</option>
@@ -158,7 +158,7 @@ export default function Home() {
               : null}
 
           </div>
-          <label htmlFor="diabetes" className="mt-2 block text-sm  text-gray-900 font-medium">
+          <label htmlFor="diabetes" className="md:mt-2 block text-sm  text-gray-900 font-medium">
             ¿Tiene Diabetes Mellitus?
           </label>
           <select
