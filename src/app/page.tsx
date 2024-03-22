@@ -151,10 +151,11 @@ export default function Home() {
 
             </>
               : null}
-            {/* {selectedEmbarazo !== "si" ? <>
+            {selectedEmbarazo !== "si" ? <>
               <br />
+              <br></br>
             </>
-              : null} */}
+              : null}
 
           </div>
           <label htmlFor="diabetes" className="md:mt-2 block text-sm  text-gray-900 font-medium">
