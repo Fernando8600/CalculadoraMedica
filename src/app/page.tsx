@@ -148,14 +148,13 @@ export default function Home() {
                 handleCheckboxChange={handleCheckboxChange}
                 handleValidationChange4={handleValidationChange4}
               />
-              <br />
-              <br />
+
             </>
               : null}
-            {selectedEmbarazo !== "si" ? <>
+            {/* {selectedEmbarazo !== "si" ? <>
               <br />
             </>
-              : null}
+              : null} */}
 
           </div>
           <label htmlFor="diabetes" className="md:mt-2 block text-sm  text-gray-900 font-medium">
@@ -241,6 +240,11 @@ export default function Home() {
               {validationChange6 > 28 && validationChange6 <= 42 && selectedSex === "mujer" && <>
                 <Card accion="En caso de no tenerla, realizar curva de tolerancia a la Glucosa."></Card>
               </>}
+              {selectedEmbarazo === "si" ?
+                <>
+                  <Card accion="Urobililastix."></Card>
+                </> : null
+              }
 
               {showMissingRCVCard && (
                 <Card accion="Tomar RCV."></Card>
