@@ -4,12 +4,16 @@ import Card from "./components/Card";
 import InputVDecimal from "./components/InputVDecimal";
 import Inputv3 from './components/Inputv3';
 import Checkbox2 from './components/Checkbox2';
+import DualCheckbox from './components/DualCheckbox';
 //import Checkbox from "./components/Checkbox";
 //import InputValidation from "./components/InputValidation";
 
 export default function Home() {
   const [showMissingRCVCard, setShowMissingRCVCard] = useState(false);
   const [isCheckedState, setisCheckedState] = useState(false);
+  const [isCheckedRN, setisCheckedRN] = useState(false);
+  const [isCheckedLessThan1, setisCheckedLessThan1] = useState(false);
+  const [showAgeInput, setShowAgeInput] = useState(true);
   const [selectedSex, setSelectedSex] = useState('');
   const [selectedEmbarazo, setSelectedEmbarazo] = useState('');
   const [selectedDiabetes, setSelectedDiabetes] = useState('');
@@ -20,22 +24,37 @@ export default function Home() {
   const [validationChange4, setValidationChange4] = useState(0);
   const [validationChange5, setValidationChange5] = useState(0);
   const [validationChange6, setValidationChange6] = useState(0);
+  const [validationChangeRN, setValidationChangeRN] = useState(0);
+  const [validationChangeL1, setValidationChangeL1] = useState(0);
   const [peso, setPeso] = useState(0);
   const [talla, setTalla] = useState(0);
   const [gestacion, setGestacion] = useState(0);
   const [imc, setImc] = useState(0);
 
+  const [dualCheckboxEnabled, setDualCheckboxEnabled] = useState(true); // Estado para habilitar/deshabilitar los DualCheckbox
+
+
   useEffect(() => {
-    // Calcula el IMC cuando cambien los valores de peso y talla
     const calcularIMC = () => {
       if (peso && talla) {
-        const imcCalculado = peso / (talla * talla);
+        const imcCalculado = peso / ((talla / 100) * (talla / 100));
         setImc(imcCalculado);
       }
     };
 
     calcularIMC();
   }, [peso, talla]);
+
+  const handleDualCheckboxChange = (isCheckedRN: boolean | ((prevState: boolean) => boolean), isCheckedLessThan1: boolean | ((prevState: boolean) => boolean)) => {
+    if (isCheckedRN || isCheckedLessThan1) {
+      setShowAgeInput(false);
+    } else if (!isCheckedRN && !isCheckedLessThan1) {
+      setShowAgeInput(true);
+    }
+    setisCheckedRN(isCheckedRN);
+    setisCheckedLessThan1(isCheckedLessThan1);
+  };
+
 
   const handleCheckboxChange = () => {
     setisCheckedState(!isCheckedState);
@@ -57,6 +76,12 @@ export default function Home() {
   };
   const handleEmbarazoChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
     setSelectedEmbarazo(e.target.value);
+    // Si la opción "Embarazo" es "Sí", deshabilitar los DualCheckbox
+    if (e.target.value === 'si') {
+      setDualCheckboxEnabled(false);
+    } else {
+      setDualCheckboxEnabled(true);
+    }
   };
 
   const handleDiabetesChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
@@ -90,6 +115,12 @@ export default function Home() {
   const handleValidationChange6 = (value: React.SetStateAction<number>) => {
     setValidationChange6(value);
   };
+  const handleValidationChangeRN = (value: React.SetStateAction<number>) => {
+    setValidationChangeRN(value);
+  };
+  const handleValidationChangeL1 = (value: React.SetStateAction<number>) => {
+    setValidationChangeL1(value);
+  };
   //502.65 x 468
   // 384 x 468
   return (
@@ -111,6 +142,7 @@ export default function Home() {
             <option value="mujer">Mujer</option>
           </select>
           <div className="md:columns-2 sm:columns-1">
+
             {selectedSex === "mujer" ? <>
               <label htmlFor="embarazo" className=" block text-sm  text-gray-900 font-medium">
                 ¿Está embarazada?
@@ -129,10 +161,32 @@ export default function Home() {
             {selectedEmbarazo === "si" && selectedSex === "mujer" ? <>
               <InputVDecimal min={0} max={42} title="Semanas de Gestación" onValueChange={handleValidationChange6} disabled={false}></InputVDecimal>
             </> : null}
-            <Inputv3 min={0} max={100} title="Edad (años cumplidos)" onValueChange={handleValidationChange} disabled={false} />
-            {/* <InputValidation min={0} max={100} title="Edad (años cumplidos)" onValueChange={handleValidationChange} disabled={false}></InputValidation> */}
-            <InputVDecimal min={0} max={200} title="Peso (kg)" onValueChange={(value) => setPeso(value)} disabled={false}></InputVDecimal>
-            <InputVDecimal min={1} max={2} title="Talla (m)" onValueChange={(value) => setTalla(value)} disabled={false}></InputVDecimal>
+
+            <div className='flex'>
+              {showAgeInput && <Inputv3 min={1} max={100} title="Edad (años cumplidos)" onValueChange={handleValidationChange} disabled={false} />}
+              {isCheckedRN == true ? <><div className='mr-2'>
+                <Inputv3 min={0} max={31} title="Edad (dias cumplidos)" onValueChange={handleValidationChangeRN} disabled={false} />
+              </div>
+              </>
+                : null}
+              {isCheckedLessThan1 && <Inputv3 min={0} max={12} title="Edad (meses cumplidos)" onValueChange={handleValidationChangeL1} disabled={false} />}
+
+
+              {dualCheckboxEnabled && (
+                <>
+                  {/* Resto del código para los DualCheckbox */}
+                  <DualCheckbox
+                    isCheckedRN={isCheckedRN}
+                    isCheckedLessThan1={isCheckedLessThan1}
+                    handleDualCheckboxChange={handleDualCheckboxChange}
+                  />
+                </>
+              )}
+            </div>
+            <div className='break-after-column'>
+              <InputVDecimal min={0} max={200} title="Peso (kg)" onValueChange={(value) => setPeso(value)} disabled={false}></InputVDecimal>
+            </div>
+            <InputVDecimal min={1} max={200} title="Talla (cm)" onValueChange={(value) => setTalla(value)} disabled={false}></InputVDecimal>
             <label className='px-2 text-sm font-medium text-gray-900'>IMC: {imc.toFixed(2)}</label>
             <label className='px-2 text-sm font-light text-gray-900'>{imc > 0 && imc < 18.5 && "Bajo Peso"} </label>
             <label className='px-2 text-sm font-light text-gray-900'>{imc >= 18.5 && imc < 25 && "Normal"} </label>
@@ -203,6 +257,8 @@ export default function Home() {
               {selectedSex === "mujer" && validationChange >= 25 && validationChange <= 35 && <Card accion="Papanicolau cada año."></Card>}
               {selectedSex === "mujer" && validationChange >= 35 && validationChange <= 65 && <Card accion="PCR VPH cada año."></Card>}
               {selectedSex === "mujer" && validationChange >= 40 && validationChange <= 70 && <Card accion="Mastografia (sacar cita) cada año."></Card>}
+              {((validationChange >= 1 && validationChange <= 6) || isCheckedRN || isCheckedLessThan1) && <Card accion="Esquema de Vacunación completo para la edad"></Card>}
+              {validationChangeRN >= 3 && isCheckedRN && validationChangeRN <= 7 && <Card accion="Tamiz metabólico"></Card>}
 
               {imc >= 25 && selectedDiabetes === "no" ?
                 <>
@@ -232,7 +288,7 @@ export default function Home() {
                 <Card accion="Estatina y/o aspirina sugerida al año."></Card>
                 <Card accion="Electrocardiograma cada año."></Card>
               </>}
-              {((validationChange6 >= 1 && validationChange6 <= 12) || (validationChange6 >= 27 && validationChange6 <= 40) && (selectedSex === "mujer")) && <>
+              {((validationChange6 >= 1 && validationChange6 <= 12 && selectedEmbarazo == "si") || (validationChange6 >= 27 && validationChange6 <= 40) && (selectedSex === "mujer" && selectedEmbarazo === "si")) && <>
                 <Card accion="Prueba VIH y VDRL en 1er. trimestre y 3er. trimestre."></Card>
               </>}
               {validationChange6 >= 24 && validationChange6 <= 28 && selectedSex === "mujer" && <>
@@ -240,6 +296,15 @@ export default function Home() {
               </>}
               {validationChange6 > 28 && validationChange6 <= 42 && selectedSex === "mujer" && <>
                 <Card accion="En caso de no tenerla, realizar curva de tolerancia a la Glucosa."></Card>
+              </>}
+              {validationChange6 >= 11 && validationChange6 <= 14 && selectedSex === "mujer" && selectedEmbarazo == "si" && <>
+                <Card accion="USG tamiz malformaciones cromosómicas"></Card>
+              </>}
+              {validationChange6 >= 15 && validationChange6 <= 24 && selectedSex === "mujer" && selectedEmbarazo == "si" && <>
+                <Card accion="USG estructural"></Card>
+              </>}
+              {validationChange6 >= 28 && validationChange6 <= 36 && selectedSex === "mujer" && selectedEmbarazo == "si" && <>
+                <Card accion="USG 3er trimestre"></Card>
               </>}
               {selectedEmbarazo === "si" ?
                 <>

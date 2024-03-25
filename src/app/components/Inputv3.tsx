@@ -17,6 +17,7 @@ export default function Inputv3({ max, min, title, onValueChange, disabled }: In
         validateForm();
     }, [value]);
 
+
     const validateForm = () => {
         const parsedValue = Number(value);
 
@@ -30,13 +31,18 @@ export default function Inputv3({ max, min, title, onValueChange, disabled }: In
     };
 
     const handleValueChange = (newValue: string) => {
-        if (!isNaN(parseFloat(newValue))) {
-            setValue(newValue);
-            onValueChange(Number(newValue));
-        } else {
-            setValue('');
+        if (/^\d*$/.test(newValue)) {
+            const parsedValue = parseInt(newValue);
+            if (!isNaN(parsedValue) && parsedValue >= min && parsedValue <= max) {
+                setValue(newValue);
+                onValueChange(parsedValue);
+            } else if (newValue === '' || parsedValue === 100) {
+                setValue(newValue);
+                onValueChange(parsedValue);
+            }
         }
     };
+
 
     useEffect(() => {
         if (disabled) {

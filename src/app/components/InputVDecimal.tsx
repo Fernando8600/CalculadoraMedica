@@ -11,14 +11,17 @@ interface InputVProps {
 
 export default function InputVDecimal({ max, min, title, onValueChange, disabled }: InputVProps) {
     const handleValueChange = (newValue: string) => {
-        if (!isNaN(parseFloat(newValue))) {
-            setValue(newValue);
-            onValueChange(Number(newValue));
-        } else {
-            setValue('');
+        if (/^\d*$/.test(newValue)) {
+            const parsedValue = parseFloat(newValue);
+            if (!isNaN(parsedValue) && parsedValue >= min && parsedValue <= max) {
+                setValue(newValue);
+                onValueChange(parsedValue);
+            } else if (newValue === '') {
+                setValue(newValue);
+                onValueChange(parsedValue);
+            }
         }
     };
-
     const [value, setValue] = useState<string>('');
     const [errors, setErrors] = useState<boolean>(false);
 
