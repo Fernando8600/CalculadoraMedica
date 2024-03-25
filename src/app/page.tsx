@@ -48,11 +48,19 @@ export default function Home() {
   const handleDualCheckboxChange = (isCheckedRN: boolean | ((prevState: boolean) => boolean), isCheckedLessThan1: boolean | ((prevState: boolean) => boolean)) => {
     if (isCheckedRN || isCheckedLessThan1) {
       setShowAgeInput(false);
+      setValidationChange(0);
+      setValidationChange4(0);
     } else if (!isCheckedRN && !isCheckedLessThan1) {
       setShowAgeInput(true);
     }
     setisCheckedRN(isCheckedRN);
     setisCheckedLessThan1(isCheckedLessThan1);
+    if (isCheckedRN) {
+      setValidationChangeL1(0);
+    }
+    if (isCheckedLessThan1) {
+      setValidationChangeRN(0);
+    }
   };
 
 
@@ -64,6 +72,8 @@ export default function Home() {
     } else {
       setShowMissingRCVCard(false);
     }
+
+
   };
   const [showAcciones, setShowAcciones] = useState(false);
 
@@ -187,15 +197,15 @@ export default function Home() {
               <InputVDecimal min={0} max={200} title="Peso (kg)" onValueChange={(value) => setPeso(value)} disabled={false}></InputVDecimal>
             </div>
             <InputVDecimal min={1} max={200} title="Talla (cm)" onValueChange={(value) => setTalla(value)} disabled={false}></InputVDecimal>
-            <label className='px-2 text-sm font-medium text-gray-900'>IMC: {imc.toFixed(2)}</label>
-            <label className='px-2 text-sm font-light text-gray-900'>{imc > 0 && imc < 18.5 && "Bajo Peso"} </label>
-            <label className='px-2 text-sm font-light text-gray-900'>{imc >= 18.5 && imc < 25 && "Normal"} </label>
-            <label className='px-2 text-sm font-light text-gray-900'>{imc >= 25 && imc < 30 && "Sobrepeso"} </label>
-            <label className='px-2 text-sm font-light text-gray-900'>{imc >= 30 && imc < 35 && "Obesidad Grado I"} </label>
-            <label className='px-2 text-sm font-light text-gray-900'>{imc >= 35 && imc < 40 && "Obesidad Grado II"} </label>
-            <label className='px-2 text-sm font-light text-gray-900'>{imc >= 40 && "Obesidad Grado III"} </label>
-            <br />
-            <br />
+            {imc <= 60 && <label className='px-1 text-sm font-medium text-gray-900'>IMC: {imc.toFixed(2)}</label>}
+            <div className='flex-1 mb-2'>
+              <label className='text-sm font-medium text-gray-900'>{imc > 0 && imc < 18.5 && "Bajo Peso"} </label>
+              <label className='text-sm font-medium text-gray-900'>{imc >= 18.5 && imc < 25 && "Normal"} </label>
+              <label className='text-sm font-medium text-gray-900'>{imc >= 25 && imc < 30 && "Sobrepeso"} </label>
+              <label className='text-sm font-medium text-gray-900'>{imc >= 30 && imc < 35 && "Obesidad Grado I"} </label>
+              <label className='text-sm font-medium text-gray-900'>{imc >= 35 && imc < 40 && "Obesidad Grado II"} </label>
+              <label className='text-sm font-medium text-gray-900'>{imc >= 40 && imc <= 60 && "Obesidad Grado III"} </label>
+            </div>
             {validationChange >= 30 ? <>
               <Checkbox2
                 isChecked={isCheckedState}
