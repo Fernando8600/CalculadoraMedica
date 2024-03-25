@@ -5,6 +5,7 @@ import InputVDecimal from "./components/InputVDecimal";
 import Inputv3 from './components/Inputv3';
 import Checkbox2 from './components/Checkbox2';
 import DualCheckbox from './components/DualCheckbox';
+import InputVDecimal2 from './components/InputVDecimal2';
 //import Checkbox from "./components/Checkbox";
 //import InputValidation from "./components/InputValidation";
 
@@ -55,10 +56,10 @@ export default function Home() {
     }
     setisCheckedRN(isCheckedRN);
     setisCheckedLessThan1(isCheckedLessThan1);
-    if (isCheckedRN) {
+    if (isCheckedRN || !isCheckedLessThan1) {
       setValidationChangeL1(0);
     }
-    if (isCheckedLessThan1) {
+    if (isCheckedLessThan1 || !isCheckedRN) {
       setValidationChangeRN(0);
     }
   };
@@ -89,6 +90,9 @@ export default function Home() {
     // Si la opción "Embarazo" es "Sí", deshabilitar los DualCheckbox
     if (e.target.value === 'si') {
       setDualCheckboxEnabled(false);
+      setisCheckedLessThan1(false);
+      setisCheckedRN(false);
+      setShowAgeInput(true);
     } else {
       setDualCheckboxEnabled(true);
     }
@@ -194,8 +198,9 @@ export default function Home() {
               )}
             </div>
             <div className='break-after-column'>
-              <InputVDecimal min={0} max={200} title="Peso (kg)" onValueChange={(value) => setPeso(value)} disabled={false}></InputVDecimal>
+              <InputVDecimal2 min={0} max={200} title="Peso (kg)" onValueChange={(value) => setPeso(value)} disabled={false}></InputVDecimal2>
             </div>
+
             <InputVDecimal min={1} max={200} title="Talla (cm)" onValueChange={(value) => setTalla(value)} disabled={false}></InputVDecimal>
             {imc <= 60 && <label className='px-1 text-sm font-medium text-gray-900'>IMC: {imc.toFixed(2)}</label>}
             <div className='flex-1 mb-2'>
@@ -267,8 +272,8 @@ export default function Home() {
               {selectedSex === "mujer" && validationChange >= 25 && validationChange <= 35 && <Card accion="Papanicolau cada año."></Card>}
               {selectedSex === "mujer" && validationChange >= 35 && validationChange <= 65 && <Card accion="PCR VPH cada año."></Card>}
               {selectedSex === "mujer" && validationChange >= 40 && validationChange <= 70 && <Card accion="Mastografia (sacar cita) cada año."></Card>}
-              {((validationChange >= 1 && validationChange <= 6) || isCheckedRN || isCheckedLessThan1) && <Card accion="Esquema de Vacunación completo para la edad"></Card>}
-              {validationChangeRN >= 3 && isCheckedRN && validationChangeRN <= 7 && <Card accion="Tamiz metabólico"></Card>}
+              {((validationChange >= 1 && validationChange <= 6) || isCheckedRN || isCheckedLessThan1 && selectedEmbarazo != "si") && <Card accion="Esquema de Vacunación completo para la edad"></Card>}
+              {validationChangeRN >= 3 && isCheckedRN && validationChangeRN <= 7 && selectedEmbarazo != "si" && <Card accion="Tamiz metabólico"></Card>}
 
               {imc >= 25 && selectedDiabetes === "no" ?
                 <>
