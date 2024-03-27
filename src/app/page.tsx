@@ -51,6 +51,8 @@ export default function Home() {
       setShowAgeInput(false);
       setValidationChange(0);
       setValidationChange4(0);
+      setValidationChange6(0);
+
     } else if (!isCheckedRN && !isCheckedLessThan1) {
       setShowAgeInput(true);
     }
@@ -107,7 +109,6 @@ export default function Home() {
   };
 
   const handleValidationChange = (value: React.SetStateAction<number>) => {
-
     setValidationChange(value);
   };
 
@@ -121,6 +122,7 @@ export default function Home() {
 
   const handleValidationChange4 = (value: React.SetStateAction<number>) => {
     setValidationChange4(value);
+
   };
 
   const handleValidationChange5 = (value: React.SetStateAction<number>) => {
@@ -260,7 +262,7 @@ export default function Home() {
             className="mt-3 text-white bg-gray-800 hover:bg-gray-900 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
             onClick={toggleAcciones}
           >
-            Acciones
+            Mostrar Acciones
           </button>
 
           <div className={showAcciones ? '' : 'hidden'}>
@@ -303,25 +305,25 @@ export default function Home() {
                 <Card accion="Estatina y/o aspirina sugerida al año."></Card>
                 <Card accion="Electrocardiograma cada año."></Card>
               </>}
-              {((validationChange6 >= 1 && validationChange6 <= 12 && selectedEmbarazo == "si") || (validationChange6 >= 27 && validationChange6 <= 40) && (selectedSex === "mujer" && selectedEmbarazo === "si")) && <>
+              {((validationChange6 >= 1 && validationChange6 <= 12 && selectedEmbarazo == "si") || (validationChange6 >= 27 && validationChange6 <= 40) && (selectedSex === "mujer" && selectedEmbarazo === "si" && validationChange > 11)) && <>
                 <Card accion="Prueba VIH y VDRL en 1er. trimestre y 3er. trimestre."></Card>
               </>}
-              {validationChange6 >= 24 && validationChange6 <= 28 && selectedSex === "mujer" && <>
+              {validationChange6 >= 24 && validationChange6 <= 28 && selectedSex === "mujer" && selectedEmbarazo == "si" && validationChange > 11 && <>
                 <Card accion="Realizar curva de tolerancia a la Glucosa."></Card>
               </>}
-              {validationChange6 > 28 && validationChange6 <= 42 && selectedSex === "mujer" && <>
+              {validationChange6 > 28 && validationChange6 <= 42 && selectedSex === "mujer" && selectedEmbarazo == "si" && validationChange > 11 && <>
                 <Card accion="En caso de no tenerla, realizar curva de tolerancia a la Glucosa."></Card>
               </>}
-              {validationChange6 >= 11 && validationChange6 <= 14 && selectedSex === "mujer" && selectedEmbarazo == "si" && <>
+              {validationChange6 >= 11 && validationChange6 <= 14 && selectedSex === "mujer" && selectedEmbarazo == "si" && validationChange > 11 && <>
                 <Card accion="USG tamiz malformaciones cromosómicas"></Card>
               </>}
-              {validationChange6 >= 15 && validationChange6 <= 24 && selectedSex === "mujer" && selectedEmbarazo == "si" && <>
+              {validationChange6 >= 15 && validationChange6 <= 24 && selectedSex === "mujer" && selectedEmbarazo == "si" && validationChange > 11 && <>
                 <Card accion="USG estructural"></Card>
               </>}
-              {validationChange6 >= 28 && validationChange6 <= 36 && selectedSex === "mujer" && selectedEmbarazo == "si" && <>
+              {validationChange6 >= 28 && validationChange6 <= 36 && selectedSex === "mujer" && selectedEmbarazo == "si" && validationChange > 11 && <>
                 <Card accion="USG 3er trimestre"></Card>
               </>}
-              {selectedEmbarazo === "si" ?
+              {selectedEmbarazo === "si" && validationChange > 11 ?
                 <>
                   <Card accion="Urobililastix."></Card>
                 </> : null
