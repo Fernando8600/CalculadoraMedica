@@ -327,7 +327,7 @@ export default function Home() {
               {validationChange6 >= 28 && validationChange6 <= 36 && selectedSex === "mujer" && selectedEmbarazo == "si" && validationChange > 11 && <>
                 <Card accion="USG 3er trimestre"></Card>
               </>}
-              {selectedEmbarazo === "si" && validationChange > 11 ?
+              {selectedEmbarazo === "si" && validationChange > 11 && selectedSex === "mujer" ?
                 <>
                   <Card accion="Urobililastix."></Card>
                 </> : null
