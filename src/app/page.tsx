@@ -86,6 +86,10 @@ export default function Home() {
 
   const handleSexoChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
     setSelectedSex(e.target.value);
+    if (e.target.value === 'hombre' && !dualCheckboxEnabled) {
+      setDualCheckboxEnabled(true);
+
+    }
   };
   const handleEmbarazoChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
     setSelectedEmbarazo(e.target.value);
