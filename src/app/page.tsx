@@ -6,6 +6,7 @@ import Inputv3 from './components/Inputv3';
 import Checkbox2 from './components/Checkbox2';
 import DualCheckbox from './components/DualCheckbox';
 import InputVDecimal2 from './components/InputVDecimal2';
+import Card2 from './components/Card2';
 //import Checkbox from "./components/Checkbox";
 //import InputValidation from "./components/InputValidation";
 
@@ -79,16 +80,13 @@ export default function Home() {
 
   };
   const [showAcciones, setShowAcciones] = useState(false);
-
   const toggleAcciones = () => {
     setShowAcciones(!showAcciones);
   };
-
   const handleSexoChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
     setSelectedSex(e.target.value);
     if (e.target.value === 'hombre' && !dualCheckboxEnabled) {
       setDualCheckboxEnabled(true);
-
     }
   };
   const handleEmbarazoChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
@@ -103,32 +101,24 @@ export default function Home() {
       setDualCheckboxEnabled(true);
     }
   };
-
   const handleDiabetesChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
     setSelectedDiabetes(e.target.value);
   };
-
   const handleHtensionChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
     setSelectedHtension(e.target.value);
   };
-
   const handleValidationChange = (value: React.SetStateAction<number>) => {
     setValidationChange(value);
   };
-
   const handleValidationChange2 = (value: React.SetStateAction<number>) => {
     setValidationChange2(value);
   };
-
   const handleValidationChange3 = (value: React.SetStateAction<number>) => {
     setValidationChange3(value);
   };
-
   const handleValidationChange4 = (value: React.SetStateAction<number>) => {
     setValidationChange4(value);
-
   };
-
   const handleValidationChange5 = (value: React.SetStateAction<number>) => {
     setValidationChange5(value);
   };
@@ -210,8 +200,8 @@ export default function Home() {
             <InputVDecimal min={1} max={200} title="Talla (cm)" onValueChange={(value) => setTalla(value)} disabled={false}></InputVDecimal>
             {imc <= 60 && <label className='px-1 text-sm font-medium text-gray-900'>IMC: {imc.toFixed(2)}</label>}
             <div className='flex-1 mb-2'>
-              <label className='text-sm font-medium text-gray-900'>{imc > 0 && imc < 18.5 && "Bajo Peso"} </label>
-              <label className='text-sm font-medium text-gray-900'>{imc >= 18.5 && imc < 25 && "Normal"} </label>
+              <label className='text-sm font-medium text-gray-900'>{imc > 0 && imc < 18.5 && "Peso Bajo"} </label>
+              <label className='text-sm font-medium text-gray-900'>{imc >= 18.5 && imc < 25 && "Peso saludable"} </label>
               <label className='text-sm font-medium text-gray-900'>{imc >= 25 && imc < 30 && "Sobrepeso"} </label>
               <label className='text-sm font-medium text-gray-900'>{imc >= 30 && imc < 35 && "Obesidad Grado I"} </label>
               <label className='text-sm font-medium text-gray-900'>{imc >= 35 && imc < 40 && "Obesidad Grado II"} </label>
@@ -242,7 +232,7 @@ export default function Home() {
             className="bg-gray-100 full rounded border-0 py-0 pl-2 pr-7 text-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
             onChange={handleDiabetesChange}
           >
-            <option value="" >Selecciona una opción...</option>
+            <option value="selec" >Selecciona una opción...</option>
             <option value="si">Sí</option>
             <option value="no">No</option>
           </select>
@@ -281,7 +271,7 @@ export default function Home() {
               {((validationChange >= 1 && validationChange <= 6) || isCheckedRN || isCheckedLessThan1 && selectedEmbarazo != "si") && <Card accion="Esquema de Vacunación completo para la edad"></Card>}
               {validationChangeRN >= 3 && isCheckedRN && validationChangeRN <= 7 && selectedEmbarazo != "si" && <Card accion="Tamiz metabólico"></Card>}
 
-              {imc >= 25 && selectedDiabetes === "no" ?
+              {imc >= 25 && (selectedDiabetes === "no" || selectedDiabetes === "selec") ?
                 <>
                   <Card accion="Glicemia Capilar cada año."></Card>
                 </> : null
