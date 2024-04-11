@@ -6,22 +6,25 @@ interface InputVProps {
     min: number;
     title: string;
     onValueChange: (value: number) => void;
+    value?: number;
     disabled: boolean;
 }
 
-export default function InputVDecimal2({ max, min, title, onValueChange, disabled }: InputVProps) {
+
+
+export default function InputVDecimal2({ max, min, title, value, onValueChange, disabled }: InputVProps) {
+
     const handleValueChange = (newValue: string) => {
-            const parsedValue = parseFloat(newValue);
-            if (!isNaN(parsedValue) && parsedValue >= min && parsedValue <= max) {
-                setValue(newValue);
-                onValueChange(parsedValue);
-            } else if (newValue === '') {
-                setValue(newValue);
-                onValueChange(parsedValue);
-            }
-        
+        const parsedValue = parseFloat(newValue);
+        if (!isNaN(parsedValue) && parsedValue >= min && parsedValue <= max) {
+
+            onValueChange(parsedValue);
+        } else if (newValue === '') {
+            onValueChange(0);
+        }
+
     };
-    const [value, setValue] = useState<string>('');
+
     const [errors, setErrors] = useState<boolean>(false);
 
     useEffect(() => {
@@ -31,7 +34,7 @@ export default function InputVDecimal2({ max, min, title, onValueChange, disable
     const validateForm = () => {
         const parsedValue = Number(value);
 
-        if (value.trim() === '') {
+        if (!value) {
             setErrors(true);
         } else if (Number.isFinite(parsedValue) && parsedValue >= min && parsedValue <= max) {
             setErrors(false);
@@ -39,11 +42,7 @@ export default function InputVDecimal2({ max, min, title, onValueChange, disable
             setErrors(true);
         }
     };
-    useEffect(() => {
-        if (disabled) {
-            setValue('');
-        }
-    }, [disabled]);
+
 
     return (
         <>
@@ -51,9 +50,14 @@ export default function InputVDecimal2({ max, min, title, onValueChange, disable
                 <label htmlFor={title} className="px-2 text-sm font-light text-gray-900 py-2">
                     {title}
                 </label>
-                <div className="relative h-10 min-w-[100px] w-40 md:my-3 sm:my-6 xs:mb-6 xs:my-2">
+                {disabled ? <>
+                    <br />
+                    <br />
+                </>
+                    : null}
+                <div className={disabled ? 'hidden' : "relative h-10 min-w-[100px] w-40 md:my-3 sm:my-6 xs:mb-6 xs:my-2"}>
 
-                    <FloatingLabel variant="outlined" label={errors ? "Número No Válido" : "Número Aceptado"} color={errors ? "error" : "success"} value={value}
+                    <FloatingLabel variant="outlined" label={errors ? "Número No Válido" : "Número Aceptado"} color={errors ? "error" : "success"} value={disabled ? '' : value}
                         onChange={(e) => handleValueChange(e.target.value)}
                         disabled={disabled} />
 
@@ -67,3 +71,4 @@ export default function InputVDecimal2({ max, min, title, onValueChange, disable
         </>
     );
 }
+

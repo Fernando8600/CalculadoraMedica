@@ -6,11 +6,12 @@ interface InputVProps {
     min: number;
     title: string;
     onValueChange: (value: number) => void;
+    value?: number;
     disabled: boolean;
 }
 
-export default function Inputv3({ max, min, title, onValueChange, disabled }: InputVProps) {
-    const [value, setValue] = useState<string>('');
+export default function Inputv3({ max, min, title, onValueChange, value, disabled }: InputVProps) {
+
     const [errors, setErrors] = useState<boolean>(false);
 
     useEffect(() => {
@@ -21,7 +22,7 @@ export default function Inputv3({ max, min, title, onValueChange, disabled }: In
     const validateForm = () => {
         const parsedValue = Number(value);
 
-        if (value.trim() === '') {
+        if (!value) {
             setErrors(true);
         } else if (Number.isInteger(parsedValue) && parsedValue >= min && parsedValue <= max) {
             setErrors(false);
@@ -34,21 +35,15 @@ export default function Inputv3({ max, min, title, onValueChange, disabled }: In
         if (/^\d*$/.test(newValue)) {
             const parsedValue = parseInt(newValue);
             if (!isNaN(parsedValue) && parsedValue >= min && parsedValue <= max) {
-                setValue(newValue);
                 onValueChange(parsedValue);
-            } else if (newValue === '' || parsedValue === 100) {
-                setValue(newValue);
-                onValueChange(parsedValue);
+            } else if (newValue === '') {
+                onValueChange(0);
             }
         }
     };
 
 
-    useEffect(() => {
-        if (disabled) {
-            setValue('');
-        }
-    }, [disabled]);
+
     return (
         <>
             <div>
@@ -62,7 +57,7 @@ export default function Inputv3({ max, min, title, onValueChange, disabled }: In
                     : null}
                 <div className={disabled ? 'hidden' : 'relative h-10 min-w-[100px] w-40 md:my-3 sm:my-6 xs:mb-6 xs:my-2'}>
 
-                    <FloatingLabel variant="outlined" label={errors ? "Número No Válido" : "Número Aceptado"} color={errors ? "error" : "success"} value={value}
+                    <FloatingLabel variant="outlined" label={errors ? "Número No Válido" : "Número Aceptado"} color={errors ? "error" : "success"} value={disabled ? '' : value}
                         onChange={(e) => handleValueChange(e.target.value)}
                         disabled={disabled} />
                 </div>

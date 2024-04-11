@@ -5,8 +5,8 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Calculadora Factores de Riesgo",
-  description: "Calculadora médica de factores de riesgo",
+  title: "Calculadora Acciones Preventivas",
+  description: "Calculadora médica de Acciones Preventivas",
 };
 
 export default function RootLayout({
