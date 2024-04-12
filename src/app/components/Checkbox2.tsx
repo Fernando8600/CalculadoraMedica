@@ -14,7 +14,6 @@ function Checkbox(props: { isChecked: boolean; handleCheckboxChange: any; handle
                 min={0}
                 title="RCV a 10 años (%)"
                 disabled={isChecked}
-
                 onValueChange={handleValidationChange4} />
             }
             <a href="https://www.msdmanuals.com/medical-calculators/ACCAHA2013-es.htm" target="_blank" rel="noopener noreferrer">

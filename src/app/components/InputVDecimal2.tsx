@@ -1,12 +1,13 @@
 import { FloatingLabel } from 'flowbite-react';
+import { parseSetCookie } from 'next/dist/compiled/@edge-runtime/cookies';
 import React, { useState, useEffect } from 'react';
 
 interface InputVProps {
     max: number;
     min: number;
     title: string;
-    onValueChange: (value: number) => void;
-    value?: number;
+    onValueChange: (value: number | undefined) => void;
+    value: number | undefined;
     disabled: boolean;
 }
 
@@ -15,14 +16,18 @@ interface InputVProps {
 export default function InputVDecimal2({ max, min, title, value, onValueChange, disabled }: InputVProps) {
 
     const handleValueChange = (newValue: string) => {
+
         const parsedValue = parseFloat(newValue);
+        console.log(parsedValue);
+        console.log(newValue);
+
         if (!isNaN(parsedValue) && parsedValue >= min && parsedValue <= max) {
-
+            console.log('es valido');
             onValueChange(parsedValue);
-        } else if (newValue === '') {
-            onValueChange(0);
+        } else {
+            onValueChange(undefined);
+            console.log('no valido');
         }
-
     };
 
     const [errors, setErrors] = useState<boolean>(false);
@@ -32,15 +37,7 @@ export default function InputVDecimal2({ max, min, title, value, onValueChange, 
     }, [value]);
 
     const validateForm = () => {
-        const parsedValue = Number(value);
-
-        if (!value) {
-            setErrors(true);
-        } else if (Number.isFinite(parsedValue) && parsedValue >= min && parsedValue <= max) {
-            setErrors(false);
-        } else {
-            setErrors(true);
-        }
+        setErrors(value == undefined || value < min || value > max)
     };
 
 
@@ -57,9 +54,11 @@ export default function InputVDecimal2({ max, min, title, value, onValueChange, 
                     : null}
                 <div className={disabled ? 'hidden' : "relative h-10 min-w-[100px] w-40 md:my-3 sm:my-6 xs:mb-6 xs:my-2"}>
 
-                    <FloatingLabel variant="outlined" label={errors ? "Número No Válido" : "Número Aceptado"} color={errors ? "error" : "success"} value={disabled ? '' : value}
+                    <FloatingLabel variant="outlined" label={errors ? "Número No Válido" : "Número Aceptado"} color={errors ? "error" : "success"} value={value ?? ''}
                         onChange={(e) => handleValueChange(e.target.value)}
+                        type='number'
                         disabled={disabled} />
+
 
                 </div>
             </div>

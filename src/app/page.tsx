@@ -30,7 +30,7 @@ export default function Home() {
   const [validationChange6, setValidationChange6] = useState(0);
   const [validationChangeRN, setValidationChangeRN] = useState(0);
   const [validationChangeL1, setValidationChangeL1] = useState(0);
-  const [peso, setPeso] = useState(0);
+  const [peso, setPeso] = useState<number | undefined>();
   const [talla, setTalla] = useState(0);
   const [gestacion, setGestacion] = useState(0);
   const [imc, setImc] = useState(0);
