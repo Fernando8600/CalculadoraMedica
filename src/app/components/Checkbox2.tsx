@@ -3,18 +3,20 @@
 import React from 'react';
 
 import InputVDecimalOriginal from './InputDecimalOriginal';
+import InputVDecimal2 from './InputVDecimal2';
 
-function Checkbox(props: { isChecked: boolean; handleCheckboxChange: any; handleValidationChange4: any; }) {
-    const { isChecked, handleCheckboxChange, handleValidationChange4 } = props;
+function Checkbox(props: { isChecked: boolean; handleCheckboxChange: any; handleValidationChange4: any; validationChange4: any; }) {
+    const { isChecked, handleCheckboxChange, handleValidationChange4, validationChange4 } = props;
 
     return (
         <div className="">
 
-            {isChecked ? '' : <InputVDecimalOriginal max={100}
+            {isChecked ? '' : <InputVDecimal2 max={100}
                 min={0}
                 title="RCV a 10 años (%)"
                 disabled={isChecked}
-                onValueChange={handleValidationChange4} />
+                onValueChange={handleValidationChange4}
+                value={validationChange4} />
             }
             <a href="https://www.msdmanuals.com/medical-calculators/ACCAHA2013-es.htm" target="_blank" rel="noopener noreferrer">
                 <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">

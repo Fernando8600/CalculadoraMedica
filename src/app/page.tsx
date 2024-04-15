@@ -70,7 +70,7 @@ export default function Home() {
       let areInputsFilled = peso !== 0 && peso !== null && talla !== 0 && talla !== null;
 
       if (selectedEmbarazo === 'si') {
-        areInputsFilled = areInputsFilled && validationChange6 !== null;
+        areInputsFilled = areInputsFilled && validationChange6 !== null && validationChange6 != 0;
       }
       if (showAgeInput) {
         areInputsFilled = areInputsFilled && validationChange != null && validationChange != 0;
@@ -83,14 +83,14 @@ export default function Home() {
         areInputsFilled = areInputsFilled && validationChangeL1 != null && validationChangeL1 != 0;
       }
       if (showAgeInput && validationChange >= 30) {
-        areInputsFilled = areInputsFilled && (validationChange4 != null || isCheckedState == true);
+        areInputsFilled = areInputsFilled && ((validationChange4 != null && validationChange4 != 0) || isCheckedState == true);
       }
       // Actualizar 
       setAllQuestionsAnswered(isOptionSelected && areInputsFilled);
     };
 
     checkAllQuestionsAnswered();
-  }, [selectedSex, selectedEmbarazo, selectedDiabetes, selectedHtension, validationChange, validationChange4, validationChange6, peso, talla, validationChangeL1, validationChangeRN, isCheckedState]);
+  }, [selectedSex, selectedEmbarazo, selectedDiabetes, selectedHtension, validationChange, validationChange4, validationChange6, peso, talla, validationChangeL1, validationChangeRN, isCheckedState, showAgeInput]);
   useEffect(() => {
     if (!allQuestionsAnswered) {
       setShowAcciones(false);
@@ -145,8 +145,6 @@ export default function Home() {
     const pesoInput = document.getElementById('pesop') as HTMLInputElement | null;
     if (pesoInput) pesoInput.value = pesop.toString();
   }, []);
-
-
 
 
 
@@ -332,6 +330,7 @@ export default function Home() {
                 isChecked={isCheckedState}
                 handleCheckboxChange={handleCheckboxChange}
                 handleValidationChange4={handleValidationChange4}
+                validationChange4={validationChange4}
               />
 
             </>
