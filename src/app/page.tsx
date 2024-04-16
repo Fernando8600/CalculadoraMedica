@@ -120,9 +120,11 @@ export default function Home() {
 
     if (aniosp === 0 && mesesp !== 0) {
       setShowAgeInput(false);
+      setisCheckedLessThan1(true);
       setValidationChangeL1(mesesp);
     } else if (aniosp === 0 && mesesp === 0 && diasp !== 0) {
       setShowAgeInput(false);
+      setisCheckedRN(true);
       setValidationChangeRN(diasp);
     } else {
       setValidationChange(aniosp);
